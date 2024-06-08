@@ -1,5 +1,5 @@
 
-export default function useRequestCoins({url, statesSettings : {setCoinsList, setError, setLoading}}) {
+export default function useRequestCoins({url, statesSettings : {setCoins, setError, setLoading}}) {
     return async function getData () {
         try {
             const resp = await fetch(url);
@@ -7,7 +7,7 @@ export default function useRequestCoins({url, statesSettings : {setCoinsList, se
                 throw new Error(`Could not fetch ${url}, status ${resp.status}`);
             }
             const coinsList = await resp.json();
-            setCoinsList(coinsList)
+            setCoins(coinsList)
             setLoading('loadEnd');
 
 

@@ -6,36 +6,56 @@ import logo from './logo.svg';
 import './App.css';
 
 export default function CoinsApp(){
-  const [coinsList, setCoinsList] = useState([]);
+  const [coins, setCoins] = useState([]);
+  const [coinsListName, setCoinsListName] = useState('all')
   const [error, setError] = useState({ status: false, errorInfo: '' });
   const [loading, setLoading] = useState('loading');
   const settingsHttp = {
     url: "https://api-eu.okotoki.com/coins",
     statesSettings: {
-      setCoinsList,
+      setCoins,
       setError,
       setLoading
     }
   }
   const getDataRequest = useMemo(() => useRequestCoins(settingsHttp), []);
-  // if (loading === 'loadEnd' && !error.status) {
-  //   console.log(coinsList)
-  // }
-  
-  const {getCoins, getFavouriteCoins, changeFavouriteStateOfCoin} = useMemo(() => CreateCoinsList(coinsList),[loading])
+  const {getCoins, getFavouriteCoins, changeFavouriteStateOfCoin} = useMemo(() => CreateCoinsList(coins),[loading])
   useEffect(() => {
     getDataRequest();
   }, [])
-  console.log(loading, getCoins())
-  console.log(getCoins('pop'))
-  console.log(getFavouriteCoins())
+  function toggleListOfCoinsName(name) {
+    setCoinsListName(name)
+  }
+  function getInputData(e) {
+    console.log(e.target.value)
+  }
+
   return (
     <div>
-      <input type="text" />
-      <button>all</button>
-      <button>favourite</button>
-      { !error.status && loading === 'loadEnd' ? <AllCoins getFavouriteCoins={getFavouriteCoins} getCoins={ getCoins } setCoin={changeFavouriteStateOfCoin} /> : null}
-      {loading === 'loading' ? 'loading....' : null}
+      <input
+        type="text"
+        onChange={getInputData} />
+      <button
+        onClick={() => toggleListOfCoinsName('all')}
+      >
+        all
+      </button>
+      <button
+        onClick={() => toggleListOfCoinsName('favourite')}
+      >
+        favourite
+      </button>
+      { !error.status && loading === 'loadEnd' && coinsListName === 'all'?
+        <AllCoins
+          getFavouriteCoins={ getFavouriteCoins }
+          getCoins={ getCoins }
+          setCoin={ changeFavouriteStateOfCoin }
+        />
+        :
+        null
+      }
+      
+      { loading === 'loading' ? 'loading....' : null }
     </div>
   )
 }

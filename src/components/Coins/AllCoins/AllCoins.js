@@ -11,7 +11,7 @@ export default function AllCoins({ getCoins, setCoin, setsFromInput = '',getFavo
             return (
                 <Coin
                     updateCoinsList={ needUpdateCoinsList && coins.length - 10 === ind ?
-                        () => updateListOfCoins(getCoins(setsFromInput))
+                        () => updateListOfCoins(getCoins('a'))
                         :
                         null
                     }

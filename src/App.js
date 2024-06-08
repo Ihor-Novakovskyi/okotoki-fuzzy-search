@@ -2,13 +2,15 @@ import React, { useEffect, useMemo, useState } from 'react';
 import useRequestCoins from './services/getData';
 import CreateCoinsList from './createCoinsList';
 import AllCoins from './components/Coins/AllCoins/AllCoins';
+import FavouriteCoins from './components/Coins/FavouriteCoins/FavouriteCoins';
 import logo from './logo.svg';
 import './App.css';
 
 export default function CoinsApp(){
   const [coins, setCoins] = useState([]);
-  const [coinsListName, setCoinsListName] = useState('all')
+  const [coinsListNameToShow, setCoinsListNameToShow] = useState('all')
   const [error, setError] = useState({ status: false, errorInfo: '' });
+  const [inputText, setInputText] = useState('');
   const [loading, setLoading] = useState('loading');
   const settingsHttp = {
     url: "https://api-eu.okotoki.com/coins",
@@ -24,12 +26,14 @@ export default function CoinsApp(){
     getDataRequest();
   }, [])
   function toggleListOfCoinsName(name) {
-    setCoinsListName(name)
+    setCoinsListNameToShow(name)
   }
   function getInputData(e) {
-    console.log(e.target.value)
+    setInputText(e.target.value)
   }
-
+  // setCoin, setsFromInput = '',getFavouriteCoins 
+  // здесбь на див поместить обработчичк онскрол
+  // и лобавить еще одно состояние на обновление и передать значение и функцию обновления в AllCoins
   return (
     <div>
       <input
@@ -45,11 +49,21 @@ export default function CoinsApp(){
       >
         favourite
       </button>
-      { !error.status && loading === 'loadEnd' && coinsListName === 'all'?
+      { !error.status && loading === 'loadEnd' && coinsListNameToShow=== 'all'?
         <AllCoins
           getFavouriteCoins={ getFavouriteCoins }
           getCoins={ getCoins }
           setCoin={ changeFavouriteStateOfCoin }
+          setsFromInput={inputText}
+        />
+        :
+        null
+      }
+      { coins.length && coinsListNameToShow === 'favourite' ? 
+        <FavouriteCoins
+          setCoin={ changeFavouriteStateOfCoin }
+          setsFromInput={ inputText }
+          getFavouriteCoins={getFavouriteCoins}
         />
         :
         null

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // coinName: el, favouriteState: false, id:ind
-export default function Coin({ coinName, favouriteState, setCoin, getFavouriteCoins, coin, updateCoinsList }) {
+export default function Coin({ coinName, favouriteState, setCoin, getFavouriteCoins, coin, showMoreCoins }) {
     // console.log(updateCoinsList)
     const [favouriteStateValue, setFavoriteStateValue] = useState(favouriteState);
     const [listWasUpdatedByThisElement, setListWasUpdatedByThisElement] = useState(false);
@@ -14,9 +14,9 @@ export default function Coin({ coinName, favouriteState, setCoin, getFavouriteCo
         <div
             className="coin"
             onClick={ changeStateToggle }
-            onMouseEnter={ !listWasUpdatedByThisElement && !!updateCoinsList ? () => {
+            onMouseEnter={ !listWasUpdatedByThisElement && !!showMoreCoins ? () => {
                 setListWasUpdatedByThisElement(true)
-                updateCoinsList()
+                showMoreCoins()
             }: null}
         >
             <span>{ coinName }</span>

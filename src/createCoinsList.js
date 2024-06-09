@@ -11,16 +11,33 @@ export default function CreateCoinsList(coins) {
         offsetFilterCoins: 0
     }
     let favouriteCoins = [];
+    function resetOffset(action) {
+        switch (action) {
+            case 'resetAll':
+                allCoins.offSetCoins = 0;
+                filterCoins.offsetFilterCoins = 0;
+                return
+            case 'allCoins':
+               allCoins.offSetCoins = 0;
+                return
+            case 'filterCoins':
+                filterCoins.offsetFilterCoins = 0;
+                return
+        }
+    }
     const searcher = new FuzzySearch(allCoins.coinsList, ['coinName'], { sort: true });
 
     function createCoin(el, ind) {
         return {coinName: el, favouriteState: false, id:ind}
     }
     function getFilterCoins(settingsForSearch) {
-        let { filterListOfCoins, filterSettings, offsetFilterCoins } = filterCoins;
-        allCoins.offSetCoins = 0;// сбрсываем офсеты нефильтрованого списка всех монет 
+        // let { filterListOfCoins, filterSettings, offsetFilterCoins } = filterCoins;
+        // allCoins.offSetCoins = 0;// сбрсываем офсеты нефильтрованого списка всех монет 
+        resetOffset('allCoins')
         if (settingsForSearch === filterCoins.filterSettings) {
+            console.log("before updatefilterCoins.offsetFilterCoins", filterCoins.offsetFilterCoins)
             filterCoins.offsetFilterCoins += offSet;
+            console.log("afterupdate filterCoins.offsetFilterCoins", filterCoins.offsetFilterCoins)
             return filterCoins.offsetFilterCoins >= filterCoins.filterListOfCoins.length ?
                 filterCoins.filterListOfCoins
                 :
@@ -28,15 +45,19 @@ export default function CreateCoinsList(coins) {
         }
         //нижний блок кода віполняется только в самом начале момента фильтрации
         // создаеется фильтрованный список со всеми монетами которые соответсвуют фильтрации
-        console.log('its work first')
+        console.log('its work first time', settingsForSearch)
+        // filterCoins.offsetFilterCoins = 0;
+        resetOffset('filterCoins')
         filterCoins.offsetFilterCoins += offSet;
+        console.log('offset', filterCoins.offsetFilterCoins)
         filterCoins.filterSettings = settingsForSearch;
         filterCoins.filterListOfCoins = searcher.search(settingsForSearch);
+        console.log(filterCoins.filterListOfCoins)
 
         return filterCoins.offsetFilterCoins >= filterCoins.filterListOfCoins.length ?
             filterCoins.filterListOfCoins
             :
-            filterListOfCoins.slice(0, offsetFilterCoins)
+            filterCoins.filterListOfCoins.slice(0, filterCoins.offsetFilterCoins)
         // тут я думаю нужно создать объект с фильтрованными по строке масивом и внутри создать офсет
         // и каждый раз когда будет запускаться эта функция а офсет === сеттингс то у меня слайсится
         // фильтрованный масив с увеличениме счетчика пока не дойдем до конца 
@@ -49,31 +70,10 @@ export default function CreateCoinsList(coins) {
         if (coinsList.length && typeof searchSettings === "string") {
             const settingsForSearch = searchSettings.trim();
             if (settingsForSearch !== '') {
-                let { filterListOfCoins, filterSettings, offsetFilterCoins } = filterCoins;
-                allCoins.offSetCoins = 0;// сбрсываем офсеты нефильтрованого списка всех монет 
-                if (settingsForSearch === filterSettings) {
-                    //тут отдаем части фильтрованого списка монет
-                    offsetFilterCoins += 50;
-                    console.log(offsetFilterCoins)
-                    filterCoins.offsetFilterCoins = offsetFilterCoins;
-                   return offsetFilterCoins >= filterListOfCoins.length ? filterListOfCoins : filterListOfCoins.slice(0, offsetFilterCoins)
-                }
-                console.log('searchSettins', searchSettings);
-                console.log("filterSettings", filterSettings);
-                //нижний блок кода віполняется только в самом начале момента фильтрации
-                // создаеется фильтрованный список со всеми монетами которые соответсвуют фильтрации
-                console.log('its work first')
-                offsetFilterCoins = 50;
-                filterCoins.offsetFilterCoins = offsetFilterCoins;
-                filterCoins.filterSettings = settingsForSearch;
-                filterListOfCoins = searcher.search(settingsForSearch);
-                filterCoins.filterListOfCoins = filterListOfCoins;
-
-                return offsetFilterCoins >= filterListOfCoins.length ? filterListOfCoins : filterListOfCoins.slice(0, offsetFilterCoins)
-                // тут я думаю нужно создать объект с фильтрованными по строке масивом и внутри создать офсет
-                // и каждый раз когда будет запускаться эта функция а офсет === сеттингс то у меня слайсится
-                // фильтрованный масив с увеличениме счетчика пока не дойдем до конца 
+                allCoins.offSetCoins = 0;
+                return getFilterCoins(settingsForSearch);
             }
+            filterCoins.offsetFilterCoins = 0;
             offSetCoins += 50;
             allCoins.offSetCoins = offSetCoins;
             return offSetCoins >= coinsList.length ? coinsList : coinsList.slice(0 , offSetCoins)
@@ -104,8 +104,7 @@ export default function CreateCoinsList(coins) {
                 const searcher = new FuzzySearch(favouriteCoins,['coinName'],{sort: true})
                 return searcher.search(settingsForSearch)
             }
-            // offset += 50;
-            // return offset > coinsList.length ? coinsList : coinsList.slice(0 , offset)
+
         }
         return favouriteCoins
     }
@@ -113,5 +112,6 @@ export default function CreateCoinsList(coins) {
         getCoins,
         getFavouriteCoins,
         changeFavouriteStateOfCoin,
+        resetOffset
     }
 }

@@ -14,10 +14,10 @@ export default function Coin({ coinName, favouriteState, setCoin, getFavouriteCo
         <div
             className="coin"
             onClick={ changeStateToggle }
-            onMouseEnter={ !listWasUpdatedByThisElement && !!showMoreCoins ? () => {
-                setListWasUpdatedByThisElement(true)
-                showMoreCoins()
-            }: null}
+            // onMouseEnter={ !listWasUpdatedByThisElement && !!showMoreCoins ? () => {
+            //     setListWasUpdatedByThisElement(true)
+            //     showMoreCoins()
+            // }: null}
         >
             <span>{ coinName }</span>
 

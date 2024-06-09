@@ -1,12 +1,17 @@
 import React, { useState, Fragment, useEffect } from "react";
 import Coin from "./Coin";
 
-export default function AllCoins({ getCoins, setCoin, setsFromInput = '',getFavouriteCoins }) {
-    // const [coins, setShowMoreCoins] = useState(getCoins(setsFromInput));//это будет при скорле спиоск увелииваться
+export default function AllCoins({ getCoins, setCoin, setsFromInput = '',getFavouriteCoins, showMoreCoins, setShowMoreCoins}) {
     const [coins, setShowCoins] = useState([]);//это будет при скорле спиоск увелииваться
-
     console.log('render', coins, setsFromInput)
     useEffect(() => setShowCoins(getCoins(setsFromInput)), [setsFromInput])
+    useEffect(() => {
+        if (showMoreCoins) {
+            // setShowCoins(false);
+            setShowCoins(getCoins(setsFromInput))
+            setShowMoreCoins(false)
+        }
+    },[showMoreCoins])
     // тут создать еще один юзеффект 
     const needUpdateCoinsList = coins.length % 50 === 0;//если делится без отстатка есть вероятность того что єлементов
     //в списке больше чем нужно показать. На основании єтого мы будем обновлять список если нужно. Если это конец
@@ -18,11 +23,6 @@ export default function AllCoins({ getCoins, setCoin, setsFromInput = '',getFavo
             const { coinName, favouriteState, id } = coin
             return (
                 <Coin
-                    showMoreCoins={ needUpdateCoinsList && coins.length - 10 === ind ?
-                        () => setShowCoins(getCoins(setsFromInput))
-                        :
-                        null
-                    }
                     coin={ coin }
                     coinName={ coinName }
                     favouriteState={ favouriteState }
@@ -36,7 +36,7 @@ export default function AllCoins({ getCoins, setCoin, setsFromInput = '',getFavo
         null;
     
     return (
-        <Fragment>
+        <Fragment >
             {coinsList}
         </Fragment>
     )

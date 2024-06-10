@@ -72,6 +72,7 @@ export default function CoinsSearchWindow({ loading, error, getCoins, getFavouri
 
 
       } }>
+        {error ? 'Sorry we have some propblem with server...' : null}
         { !error.status && loading === 'loadEnd' && coinsListNameToShow === 'all' ?
           <AllCoins
             showMoreCoins={ showMoreCoins }

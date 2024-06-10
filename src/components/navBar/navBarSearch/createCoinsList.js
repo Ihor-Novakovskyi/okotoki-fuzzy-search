@@ -31,13 +31,9 @@ export default function CreateCoinsList(coins) {
         return {coinName: el, favouriteState: false, id:ind}
     }
     function getFilterCoins(settingsForSearch) {
-        // let { filterListOfCoins, filterSettings, offsetFilterCoins } = filterCoins;
-        // allCoins.offSetCoins = 0;// сбрсываем офсеты нефильтрованого списка всех монет 
         resetOffset('allCoins')
         if (settingsForSearch === filterCoins.filterSettings) {
-            console.log("before updatefilterCoins.offsetFilterCoins", filterCoins.offsetFilterCoins)
             filterCoins.offsetFilterCoins += offSet;
-            console.log("afterupdate filterCoins.offsetFilterCoins", filterCoins.offsetFilterCoins)
             return filterCoins.offsetFilterCoins >= filterCoins.filterListOfCoins.length ?
                 filterCoins.filterListOfCoins
                 :
@@ -81,15 +77,9 @@ export default function CreateCoinsList(coins) {
         
     }
     function getFavouriteCoins(searchSettings = '') {
-        console.log('setting',searchSettings)
-        console.log(favouriteCoins)
-        console.log('typeof', typeof searchSettings)
-        console.log(favouriteCoins.length && typeof searchSettings === "string")
         if (favouriteCoins.length && typeof searchSettings === "string") {
-            console.log('maybe there')
             const settingsForSearch = searchSettings.trim();
             if (settingsForSearch !== '') {
-                console.log('work in getFavourite')
                 const searcher = new FuzzySearch(favouriteCoins,['coinName'],{sort: true})
                 return searcher.search(settingsForSearch)
             }

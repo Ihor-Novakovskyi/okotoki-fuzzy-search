@@ -1,0 +1,27 @@
+.coin-nav-bar {
+    display: flex;
+    align-items: center;
+    padding: 8px 0px 8px 64px;
+    gap: 16px;
+    background-color: var(--general-dark-colour)
+}
+
+.coin-navigation__active-coin {
+    display: flex;
+    flex-basis: 180px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.coin-nav-bar__active-coins-name {
+    font-weight: bold;
+}
+
+.coin-nav-bar__selected-coins {
+    flex-basis: 200px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 16px;
+    border-left: 2px solid var(--font-color-white);
+    border-right: 2px solid var(--font-color-white);
+}

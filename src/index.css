@@ -1,5 +1,21 @@
+html {
+  --general-dark-colour: black;
+  --font-color-white: white;
+  --font-size-big: 26px;
+  --font-size-normal: 24px;
+  --color-dark-grey: #302F2F;
+  --color-grey: #ACABAA;
+  --main-font: system-ui;
+
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  background-image: url('../public/gradient.jpg');  
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: var(--font-color-white);
+  font-size: var(--font-size-big);
+  font-family: var(--main-font);
 }

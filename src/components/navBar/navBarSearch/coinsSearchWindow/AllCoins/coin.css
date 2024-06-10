@@ -1,0 +1,18 @@
+.coin-search-window__coin{
+display: flex;
+cursor: pointer;
+gap: 16px;
+padding: 8px 0px 8px 8px ;
+border-radius: 8px;
+align-items: center;
+color:var(--color-grey)
+}
+.coin-search-window__coin-name{
+    font-size: var(--font-size-normal);
+}
+.coin-search-window__coin:hover{
+background-color: var(--color-dark-grey)
+}
+.coin-search-window__coin--favourite{
+color: var(--font-color-white);
+}

@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import useRequestCoins from './services/getData';
+import useRequestCoins from './components/services/getData';
 import CreateCoinsList from './createCoinsList';
-import AllCoins from './components/Coins/AllCoins/AllCoins';
-import FavouriteCoins from './components/Coins/FavouriteCoins/FavouriteCoins';
+import AllCoins from './components/AllCoins/AllCoins';
+import FavouriteCoins from './components/FavouriteCoins/FavouriteCoins';
 import logo from './logo.svg';
 import './App.css';
 

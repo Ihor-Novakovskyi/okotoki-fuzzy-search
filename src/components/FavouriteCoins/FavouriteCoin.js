@@ -16,7 +16,7 @@ export default function FavouriteCoin({ coinName, setCoin, coin }) {
         >
             <span>{ coinName }</span>
 
-            <span>{ 'favourite' }</span>
+            <span>{ 'favorite' }</span>
         </div>
     )
         :

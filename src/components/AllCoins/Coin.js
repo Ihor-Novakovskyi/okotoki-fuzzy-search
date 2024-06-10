@@ -21,7 +21,7 @@ export default function Coin({ coinName, favouriteState, setCoin, getFavouriteCo
         >
             <span>{ coinName }</span>
 
-            <span>{favouriteStateValue ? 'favourite' : 'notFavourite'}</span>
+            <span>{favouriteStateValue ? 'favorite' : 'notFavorite'}</span>
         </div>
     )
 }

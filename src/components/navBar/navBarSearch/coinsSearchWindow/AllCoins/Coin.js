@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import Star from './star';
 import './coin.css';
 
-export default function Coin({ coinName, favouriteState, setCoin, getFavouriteCoins, coin, }) {
+export default function Coin({ coinName, favouriteState, setCoin, coin, }) {
     const [favouriteStateValue, setFavoriteStateValue] = useState(favouriteState);
     function changeStateToggle() {
         setFavoriteStateValue(!favouriteStateValue);
         setCoin(coin)
-        console.log('wrok')
-        console.log('getFavoritecoins',getFavouriteCoins())
     }
     return (
         <div

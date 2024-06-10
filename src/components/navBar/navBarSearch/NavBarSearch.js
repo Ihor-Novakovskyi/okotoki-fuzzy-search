@@ -3,7 +3,7 @@ import React, {useState, useMemo, useEffect} from "react";
 import CreateCoinsList from "./createCoinsList";
 import CoinsSearchWindow from './coinsSearchWindow/CoinsSearchWindow';
 import useRequestCoins from "../../services/getData";
-import './NavBarSearch.css';
+import './navBarSearch.css';
 
 export default function NavBarSearch() {
     const [coins, setCoins] = useState([]);

@@ -2,8 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import AllCoins from './AllCoins/AllCoins';
 import FavouriteCoins from './FavouriteCoins/FavouriteCoins';
 import Star from './AllCoins/star';
-// import cross from './cross.svg'
-import './CoinsSearchWindow.css'
+import './coinsSearchWindow.css'
 
 export default function CoinsSearchWindow({ loading, error, getCoins, getFavouriteCoins, changeFavouriteStateOfCoin, resetOffset }) {
   const [coinsListNameToShow, setCoinsListNameToShow] = useState('all')
@@ -23,11 +22,7 @@ export default function CoinsSearchWindow({ loading, error, getCoins, getFavouri
 
   return (
     <div
-      onClick={ (e) => {
-        e.stopPropagation()
-        console.log(e.target)
-        console.log(e.currentTarget)
-      } }
+      onClick={(e) => e.stopPropagation()}
       className='coin-search-window'
     >
       <div className='coin-search-window__actions-wrapper'>
@@ -72,7 +67,6 @@ export default function CoinsSearchWindow({ loading, error, getCoins, getFavouri
       <div className='coin-search-window__window-with-coins' onScroll={ (e) => {
         const clinetHeigth = document.querySelector('.coin-search-window__window-with-coins').clientHeight;
         if (e.target.scrollHeight - clinetHeigth - e.target.scrollTop < 100) {
-          console.log("update")
           setShowMoreCoins(true)
         }
 
@@ -82,7 +76,6 @@ export default function CoinsSearchWindow({ loading, error, getCoins, getFavouri
           <AllCoins
             showMoreCoins={ showMoreCoins }
             setShowMoreCoins={ setShowMoreCoins }
-            getFavouriteCoins={ getFavouriteCoins }
             getCoins={ getCoins }
             setCoin={ changeFavouriteStateOfCoin }
             resetOffset={ resetOffset }

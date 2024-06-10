@@ -1,6 +1,6 @@
 import React from "react";
 import NavBarSearch from './navBarSearch/NavBarSearch';
-import './NavBar.css'
+import './navBar.css'
 export default function NavBar() {
     return (
         <nav className="coin-nav-bar">

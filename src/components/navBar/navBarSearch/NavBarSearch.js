@@ -1,6 +1,6 @@
 // import CoinsSearchWindow from "./coinsSearchWindow/CoinsSearchWindow";
 import React, {useState, useMemo, useEffect} from "react";
-import CreateCoinsList from "./createCoinsList";
+import setCoinsListData from "./setCoinsListData";
 import CoinsSearchWindow from './coinsSearchWindow/CoinsSearchWindow';
 import useRequestCoins from "../../services/getData";
 import './navBarSearch.css';
@@ -19,7 +19,7 @@ export default function NavBarSearch() {
       }
     }
     const getDataRequest = useMemo(() => useRequestCoins(settingsHttp), []);
-    const { getCoins, getFavouriteCoins, changeFavouriteStateOfCoin, resetOffset } = useMemo(() => CreateCoinsList(coins), [loading])
+    const { getCoins, getFavouriteCoins, changeFavouriteStateOfCoin, resetOffset } = useMemo(() => setCoinsListData(coins), [loading])
     useEffect(() => {
       getDataRequest();
       document.addEventListener('click', () => setOpen(false))
